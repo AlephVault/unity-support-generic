@@ -1,0 +1,13 @@
+{
+  "name": "com.alephvault.unity.support.generic",
+  "version": "0.0.1",
+  "displayName": "Aleph Vault - Unity - Support - Generics",
+  "description": "Extra generic types, mainly intended for authoring and standard games.",
+  "unity": "2018.1",
+  "dependencies": {},
+  "author": {
+    "name": "Aleph Vault",
+    "email": "info@alephvault.com",
+    "url": "http://www.alephvault.com"
+  }
+}
