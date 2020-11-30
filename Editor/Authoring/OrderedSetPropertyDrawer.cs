@@ -6,7 +6,7 @@ using System;
 
 namespace AlephVault.Unity.Support.Generic
 {
-    namespace Authoring.Types
+    namespace Authoring
     {
         /// <summary>
         ///   <para>

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace AlephVault.Unity.Support.Generic
 {
-    namespace Authoring.Types
+    namespace Authoring
     {
         /// <summary>
         ///   <para>
