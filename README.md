@@ -14,7 +14,7 @@ To install this package you need to open the package manager in your project and
 # Usage
 Two classes, intended to be component fields, are supported (at namespace `AlephVault.Unity.Support.Generic.Authoring`):
 
-  1. OrderedSet<T>: A set keeping track of the first insertion index.
-  2. Dictionary<K, V>: A dictionary.
+  1. `OrderedSet<T>`: A set keeping track of the first insertion index.
+  2. `Dictionary<K, V>`: A dictionary.
 
 Both are supported both in the editor and runtime.
