@@ -1,1 +1,4 @@
 .DS_Store
+/*.meta
+!/Editor.meta
+!/Runtime.meta
