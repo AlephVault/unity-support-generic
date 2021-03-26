@@ -8,7 +8,7 @@ To install this package you need to open the package manager in your project and
      - "name": "AlephVault"
      - "url": "https://packages.alephvault.com/artifactory/api/npm/unity"
      - "scopes": ["com.alephvault"]
-  2. Look for this packages: `com.alephvault.unity.support.generic`.
+  2. Look for this package: `com.alephvault.unity.support.generic`.
   3. Install it.
 
 # Usage
