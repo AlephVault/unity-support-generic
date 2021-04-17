@@ -6,7 +6,7 @@ To install this package you need to open the package manager in your project and
 
   1. Add a scoped registry with:
      - "name": "AlephVault"
-     - "url": "https://packages.alephvault.com/artifactory/api/npm/unity"
+     - "url": "https://unity.packages.alephvault.com"
      - "scopes": ["com.alephvault"]
   2. Look for this package: `com.alephvault.unity.support.generic`.
   3. Install it.
