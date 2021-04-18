@@ -1,3 +1,14 @@
-﻿{
-	"name": "AlephVault.Unity.Support.Generic.Runtime"
+{
+    "name": "AlephVault.Unity.Support.Generic.Runtime",
+    "references": [
+        "AlephVault.Unity.Support.Runtime"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }
