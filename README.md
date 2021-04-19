@@ -18,3 +18,6 @@ Two classes, intended to be component fields, are supported (at namespace `Aleph
   2. `Dictionary<K, V>`: A dictionary.
 
 Both are supported both in the editor and runtime.
+
+# Notes
+This documentation has to be updated after the big migration.
