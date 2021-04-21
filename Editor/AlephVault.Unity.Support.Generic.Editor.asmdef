@@ -1,10 +1,10 @@
 {
     "name": "AlephVault.Unity.Support.Generic.Editor",
-    "references": [],
-    "optionalUnityReferences": [],
-    "includePlatforms": [
-        "Editor"
+    "references": [
+        "AlephVault.Unity.Support.Generic.Runtime"
     ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
