@@ -1,5 +1,5 @@
 # Unity Support - Generic Types
-This support package contains generic classes, mostly intended for authoring side (i.e. editor and fields for conversion).
+This package contains extra generic types, mainly intended for authoring and standard games.
 
 # Install
 To install this package you need to open the package manager in your project and:
