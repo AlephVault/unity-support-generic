@@ -26,11 +26,11 @@ namespace AlephVault.Unity.Support.Generic
                 static GUIContent m_warningIconNull = IconContent("console.warnicon.sml", "Null key, this entry will be lost");
                 static GUIStyle m_buttonStyle = GUIStyle.none;
 
-                object m_conflictKey = null;
+                object m_conflictKey;
                 object m_conflictValue = null;
                 int m_conflictIndex = -1;
                 int m_conflictOtherIndex = -1;
-                bool m_conflictKeyPropertyExpanded = false;
+                bool m_conflictKeyPropertyExpanded;
                 bool m_conflictValuePropertyExpanded = false;
                 float m_conflictLineHeight = 0f;
 
