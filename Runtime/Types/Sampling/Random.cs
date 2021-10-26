@@ -6,6 +6,12 @@ namespace AlephVault.Unity.Support.Generic
     {
         namespace Sampling
         {
+            /// <summary>
+            ///   Given an array of elements, this object samples
+            ///   a random element of it, each time it is requested
+            ///   to (it is: uniformly random with replacement).
+            /// </summary>
+            /// <typeparam name="T">The type of elements to sample</typeparam>
             public class Random<T>
             {
                 private static Random random = new Random();
