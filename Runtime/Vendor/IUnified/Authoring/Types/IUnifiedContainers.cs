@@ -95,14 +95,16 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                 private static int IndexOf(IList<TContainer> list, TInterface item)
                 {
-                    return list.FirstIndexWhere(c =>
+                    for (int i = 0; i < list.Count; ++i)
                     {
-                        if (item == null)
-                        {
-                            return c == null || c.Result == null;
-                        }
-                        return c != null && c.Result == item;
-                    });
+                        // The item might be null or assigned.
+                        // If the list-item is null or its result
+                        // is null, it will only match when the
+                        // item becomes null itself.
+                        if (list[i]?.Result == item) return i;
+                    }
+
+                    return -1;
                 }
             }
         }
