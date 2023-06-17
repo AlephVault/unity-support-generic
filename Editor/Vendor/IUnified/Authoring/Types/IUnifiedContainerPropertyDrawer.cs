@@ -8,14 +8,14 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
+namespace AlephVault.Unity.Support.Generic
 {
     namespace Authoring
     {
         namespace Types
         {
-            [CustomPropertyDrawer(typeof(IUnifiedContainerBase.IUnifiedContainerBase), true)]
-            public class IUnifiedContainerPropertyDrawer : PropertyDrawer
+            [CustomPropertyDrawer(typeof(InterfacedCore.Parent), true)]
+            public class InterfacedPropertyDrawer : PropertyDrawer
             {
                 public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
                 {
@@ -26,7 +26,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                         position.x += 2;
                         position.height -= 2;
                         position.y += 1;
-                        GUI.Label(position, $"Cannot draw '{property.name}'.", IUnifiedGUIHelper.InspectorStyles.Error);
+                        GUI.Label(position, $"Cannot draw '{property.name}'.", InterfacedGUIHelper.InspectorStyles.Error);
                         return;
                     }
 
@@ -53,7 +53,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                 #region Private Parts
 
-                private static IUnifiedContainerSelectWindow _selectWindow;
+                private static InterfacedSelectWindow _selectWindow;
                 private static Event _currentEvent;
 
                 private const float ButtonSpace = 1.0f;
@@ -63,7 +63,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     where TResult : class
                 {
                     _currentEvent = Event.current;
-                    var resultTypeName = IUnifiedContainerBase.IUnifiedContainerBase.ConstructResolvedName(CachedType<TResult>.Type);
+                    var resultTypeName = InterfacedCore.Parent.FullConcreteTypeName(CachedType<TResult>.Type);
 
                     if (string.IsNullOrEmpty(label.tooltip))
                     {
@@ -85,15 +85,15 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     listButtonRect.SetWidth(ButtonWidth);
 
                     var isProjectAsset = serializedContainer.IsProjectAsset;
-                    var pingable = !serializedContainer.ObjectFieldProperty.hasMultipleDifferentValues && IUnifiedGUIHelper.IsPingable(serializedContainer.ObjectField);
+                    var pingable = !serializedContainer.ObjectFieldProperty.hasMultipleDifferentValues && InterfacedGUIHelper.IsPingable(serializedContainer.ObjectField);
                     var dragDropResult = GetDragAndDropResult<TResult>(resultRect, isProjectAsset, serializedContainer);
 
                     EditorGUI.LabelField(labelRect, label);
-                    IUnifiedGUIHelper.EnabledBlock(() =>
+                    InterfacedGUIHelper.EnabledBlock(() =>
                     {
                         GUI.enabled = pingable;
 
-                        IUnifiedGUIHelper.ColorBlock(() =>
+                        InterfacedGUIHelper.ColorBlock(() =>
                         {
                             if (serializedContainer.Selecting || serializedContainer.Dropping)
                             {
@@ -115,18 +115,18 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                         GUI.changed = true;
                     }
 
-                    if (GUI.Button(nullButton, new GUIContent("○", "Set to null"), IUnifiedGUIHelper.InspectorStyles.NullOutButton))
+                    if (GUI.Button(nullButton, new GUIContent("○", "Set to null"), InterfacedGUIHelper.InspectorStyles.NullOutButton))
                     {
                         serializedContainer.ObjectField = null;
                         serializedContainer.ApplyModifiedProperties();
                         GUI.changed = true;
                     }
 
-                    IUnifiedGUIHelper.EnabledBlock(() =>
+                    InterfacedGUIHelper.EnabledBlock(() =>
                     {
-                        if (GUI.Button(listButtonRect, new GUIContent("◉", "Select from list"), IUnifiedGUIHelper.InspectorStyles.SelectFromListButton))
+                        if (GUI.Button(listButtonRect, new GUIContent("◉", "Select from list"), InterfacedGUIHelper.InspectorStyles.SelectFromListButton))
                         {
-                            _selectWindow = IUnifiedContainerSelectWindow.ShowSelectWindow(resultTypeName, isProjectAsset, serializedContainer, GetSelectable<TResult>(isProjectAsset));
+                            _selectWindow = InterfacedSelectWindow.ShowSelectWindow(resultTypeName, isProjectAsset, serializedContainer, GetSelectable<TResult>(isProjectAsset));
                         }
                     });
                 }
@@ -138,7 +138,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     {
                         if (pingable)
                         {
-                            IUnifiedGUIHelper.PingObject(serializedContainer.ObjectField);
+                            InterfacedGUIHelper.PingObject(serializedContainer.ObjectField);
                         }
                     }
                     var pinging = GUIUtility.hotControl == buttonId && pingable;
@@ -147,23 +147,23 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     GUIStyle contentStyle;
                     if (serializedContainer.Dropping)
                     {
-                        fieldStyle = IUnifiedGUIHelper.InspectorStyles.DropBox;
-                        contentStyle = IUnifiedGUIHelper.InspectorStyles.DropBoxContent;
+                        fieldStyle = InterfacedGUIHelper.InspectorStyles.DropBox;
+                        contentStyle = InterfacedGUIHelper.InspectorStyles.DropBoxContent;
                     }
                     else if (pinging)
                     {
-                        fieldStyle = IUnifiedGUIHelper.InspectorStyles.Pinging;
-                        contentStyle = IUnifiedGUIHelper.InspectorStyles.PingingContent;
+                        fieldStyle = InterfacedGUIHelper.InspectorStyles.Pinging;
+                        contentStyle = InterfacedGUIHelper.InspectorStyles.PingingContent;
                     }
                     else if (serializedContainer.Selecting)
                     {
-                        fieldStyle = IUnifiedGUIHelper.InspectorStyles.Selecting;
-                        contentStyle = IUnifiedGUIHelper.InspectorStyles.SelectingContent;
+                        fieldStyle = InterfacedGUIHelper.InspectorStyles.Selecting;
+                        contentStyle = InterfacedGUIHelper.InspectorStyles.SelectingContent;
                     }
                     else
                     {
-                        fieldStyle = IUnifiedGUIHelper.InspectorStyles.Result;
-                        contentStyle = IUnifiedGUIHelper.InspectorStyles.ResultContent;
+                        fieldStyle = InterfacedGUIHelper.InspectorStyles.Result;
+                        contentStyle = InterfacedGUIHelper.InspectorStyles.ResultContent;
                     }
 
                     if (serializedContainer.ObjectFieldProperty.hasMultipleDifferentValues || serializedContainer.ObjectField == null)
@@ -182,7 +182,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     GUI.Label(rect, GUIContent.none, fieldStyle);
                     if (icon.Content != null)
                     {
-                        icon.SetWidth(IUnifiedGUIHelper.GetScaledTextureWidth(icon.Content.image, rect.height - 4.0f));
+                        icon.SetWidth(InterfacedGUIHelper.GetScaledTextureWidth(icon.Content.image, rect.height - 4.0f));
                         label.MoveNextTo(icon, -3.0f);
                         GUI.Label(icon, icon, contentStyle ?? fieldStyle);
                     }
@@ -220,7 +220,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                             if (implementation != null)
                             {
                                 var implementationObject = implementation as Object;
-                                if (implementationObject != null && (!selectingForProjectAsset || !IUnifiedGUIHelper.IsSceneObject(implementationObject)))
+                                if (implementationObject != null && (!selectingForProjectAsset || !InterfacedGUIHelper.IsSceneObject(implementationObject)))
                                 {
                                     dropping = true;
                                 }
@@ -279,10 +279,10 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                         var component = @object as Component;
                         if (component != null)
                         {
-                            return $"{component.gameObject.name} ( {IUnifiedContainerBase.IUnifiedContainerBase.ConstructResolvedName(@object.GetType())} )";
+                            return $"{component.gameObject.name} ( {InterfacedCore.Parent.FullConcreteTypeName(@object.GetType())} )";
                         }
 
-                        return IUnifiedGUIHelper.GetObjectName(@object);
+                        return InterfacedGUIHelper.GetObjectName(@object);
                     }
 
                     if (!string.IsNullOrEmpty(resultType))
@@ -296,7 +296,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                 private static IEnumerable<SelectableObject> GetSelectable<TResult>(bool projectAssetsOnly)
                     where TResult : class
                 {
-                    var objects = IUnifiedGUIHelper.EnumerateSavedObjects().Concat(projectAssetsOnly ? new Object[0] : Object.FindObjectsOfType<Object>());
+                    var objects = InterfacedGUIHelper.EnumerateSavedObjects().Concat(projectAssetsOnly ? new Object[0] : Object.FindObjectsOfType<Object>());
                     var implementations = new HashSet<TResult>();
                     foreach (var implementation in objects.SelectMany(GetObjectImplementationsOf<TResult>))
                     {
@@ -350,7 +350,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                         }
                     }
 
-                    if (IsSubclassOfRawGeneric(type, typeof(IUnifiedContainer<>), out _))
+                    if (IsSubclassOfRawGeneric(type, typeof(Interfaced<>), out _))
                     {
                         containerTypes.Add(cleanPath, type);
                         return type;
@@ -397,7 +397,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     return false;
                 }
 
-                private static readonly MethodInfo DrawMethodInfo = CachedType<IUnifiedContainerPropertyDrawer>.Type.GetMethod("DrawIUnifiedContainer", BindingFlags.Static | BindingFlags.NonPublic);
+                private static readonly MethodInfo DrawMethodInfo = CachedType<InterfacedPropertyDrawer>.Type.GetMethod("DrawIUnifiedContainer", BindingFlags.Static | BindingFlags.NonPublic);
                 private static readonly Dictionary<Type, DrawMethod> DrawMethods = new Dictionary<Type, DrawMethod>();
 
                 private delegate void DrawMethod(Rect position, GUIContent label, SerializedContainer serializedContainer);
@@ -442,7 +442,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                     public SerializedProperty ObjectFieldProperty { get { return _objectFieldProperty = _objectFieldProperty ?? ContainerProperty.FindPropertyRelative("ObjectField"); } }
                     public SerializedProperty ResultTypeProperty { get { return _resultTypeProperty = _resultTypeProperty ?? ContainerProperty.FindPropertyRelative("ResultType"); } }
-                    public bool IsProjectAsset { get { return !IUnifiedGUIHelper.IsSceneObject(ContainerProperty.serializedObject.targetObject); } }
+                    public bool IsProjectAsset { get { return !InterfacedGUIHelper.IsSceneObject(ContainerProperty.serializedObject.targetObject); } }
 
                     public Object ObjectField
                     {
@@ -610,7 +610,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                     private SelectableObject(Object @object)
                     {
                         Object = @object;
-                        IsProjectAsset = !IUnifiedGUIHelper.IsSceneObject(Object);
+                        IsProjectAsset = !InterfacedGUIHelper.IsSceneObject(Object);
                         IsComponent = Object is Component;
                     }
 

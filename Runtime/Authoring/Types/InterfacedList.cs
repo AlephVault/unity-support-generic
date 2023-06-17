@@ -3,30 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
+namespace AlephVault.Unity.Support.Generic
 {
     namespace Authoring
     {
         namespace Types
         {
-            public class IUnifiedContainers<TContainer, TInterface> : IList<TInterface>
+            public class InterfacedList<TContainer, TInterface> : IList<TInterface>
                 where TInterface : class
-                where TContainer : IUnifiedContainer<TInterface>, new()
+                where TContainer : Interfaced<TInterface>, new()
             {
                 private readonly Func<IList<TContainer>> _getList;
 
-                public IUnifiedContainers(Func<IList<TContainer>> getList)
+                public InterfacedList(Func<IList<TContainer>> getList)
                 {
                     _getList = getList;
                 }
 
-                public int Count { get { return _getList().Count; } }
+                public int Count => _getList().Count;
 
-                public bool IsReadOnly { get { return _getList().IsReadOnly; } }
+                public bool IsReadOnly => _getList().IsReadOnly;
 
                 public IEnumerator<TInterface> GetEnumerator()
                 {
-                    return _getList().Select(c => c == null ? null : c.Result).GetEnumerator();
+                    return _getList().Select(c => c?.Result).GetEnumerator();
                 }
 
                 IEnumerator IEnumerable.GetEnumerator()
@@ -51,7 +51,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                 public void CopyTo(TInterface[] array, int arrayIndex)
                 {
-                    var list = _getList().Select(c => c == null ? null : c.Result).ToList();
+                    var list = _getList().Select(c => c?.Result).ToList();
                     Array.Copy(list.ToArray(), 0, array, arrayIndex, list.Count);
                 }
 
@@ -85,12 +85,8 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                 public TInterface this[int index]
                 {
-                    get
-                    {
-                        var container = _getList()[index];
-                        return container == null ? null : container.Result;
-                    }
-                    set { _getList()[index] = new TContainer { Result = value }; }
+                    get => _getList()[index]?.Result;
+                    set => _getList()[index] = new TContainer { Result = value };
                 }
 
                 private static int IndexOf(IList<TContainer> list, TInterface item)

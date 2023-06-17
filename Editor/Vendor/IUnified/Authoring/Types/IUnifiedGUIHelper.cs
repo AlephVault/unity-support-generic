@@ -7,21 +7,21 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 
-namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
+namespace AlephVault.Unity.Support.Generic
 {
     namespace Authoring
     {
         namespace Types
         {
-            public class IUnifiedGUIHelper : ScriptableObject
+            public class InterfacedGUIHelper : ScriptableObject
             {
-                public static IUnifiedGUIHelper Instance
+                public static InterfacedGUIHelper Instance
                 {
                     get
                     {
                         if (_instance == null)
                         {
-                            var instances = Resources.FindObjectsOfTypeAll<IUnifiedGUIHelper>().ToList();
+                            var instances = Resources.FindObjectsOfTypeAll<InterfacedGUIHelper>().ToList();
                             _instance = instances.FirstOrDefault();
                             if (_instance != null)
                             {
@@ -33,14 +33,14 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
                             }
                             else
                             {
-                                _instance = CreateInstance<IUnifiedGUIHelper>();
+                                _instance = CreateInstance<InterfacedGUIHelper>();
                             }
                         }
                         _instance.Initialize();
                         return _instance;
                     }
                 }
-                private static IUnifiedGUIHelper _instance;
+                private static InterfacedGUIHelper _instance;
 
                 public static readonly Color FieldBorder = new Color32(96, 96, 96, 255);
                 public static readonly Color FieldBG = new Color32(209, 209, 209, 255);
@@ -125,7 +125,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                     if (@object is Component || string.IsNullOrEmpty(@object.name))
                     {
-                        return IUnifiedContainerBase.IUnifiedContainerBase.ConstructResolvedName(@object.GetType());
+                        return InterfacedCore.Parent.FullConcreteTypeName(@object.GetType());
                     }
 
                     return @object.name;
@@ -274,7 +274,7 @@ namespace AlephVault.Unity.Support.Generic.Vendor.IUnified
 
                 #region Private Parts
 
-                private static readonly List<FieldInfo> TextureFields = CachedType<IUnifiedGUIHelper>.Type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                private static readonly List<FieldInfo> TextureFields = CachedType<InterfacedGUIHelper>.Type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                     .Where(f => f.FieldType == CachedType<Texture2D>.Type)
                     .ToList();
 
