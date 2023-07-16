@@ -59,7 +59,7 @@ namespace AlephVault.Unity.Support.Generic
                 private const float ButtonSpace = 1.0f;
                 private const float ButtonWidth = 20.0f;
 
-                private static void DrawIUnifiedContainer<TResult>(Rect position, GUIContent label, SerializedContainer serializedContainer)
+                private static void DrawInterfaced<TResult>(Rect position, GUIContent label, SerializedContainer serializedContainer)
                     where TResult : class
                 {
                     _currentEvent = Event.current;
@@ -308,9 +308,9 @@ namespace AlephVault.Unity.Support.Generic
                 private const BindingFlags FieldBindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy;
 
                 /// <summary>
-                /// Given a SerializedProperty of a field, List, or array of IUnifiedContainer&lt;T&gt; derivative(s), will initialize null references and return the container derivative type.
+                /// Given a SerializedProperty of a field, List, or array of Interfaced&lt;T&gt; derivative(s), will initialize null references and return the container derivative type.
                 /// </summary>
-                /// <returns>The type deriving from IUnifiedContainer&lt;T&gt;, if any - null otherwise.</returns>
+                /// <returns>The type deriving from Interfaced&lt;T&gt;, if any - null otherwise.</returns>
                 private static readonly Dictionary<Type, Dictionary<string, Type>> ContainerTypesByPaths = new Dictionary<Type, Dictionary<string, Type>>();
                 private static readonly Regex ArrayMatch = new Regex(@"\.Array\.data\[\d+\]", RegexOptions.Compiled);
 
@@ -397,7 +397,7 @@ namespace AlephVault.Unity.Support.Generic
                     return false;
                 }
 
-                private static readonly MethodInfo DrawMethodInfo = CachedType<InterfacedPropertyDrawer>.Type.GetMethod("DrawIUnifiedContainer", BindingFlags.Static | BindingFlags.NonPublic);
+                private static readonly MethodInfo DrawMethodInfo = CachedType<InterfacedPropertyDrawer>.Type.GetMethod("DrawInterfaced", BindingFlags.Static | BindingFlags.NonPublic);
                 private static readonly Dictionary<Type, DrawMethod> DrawMethods = new Dictionary<Type, DrawMethod>();
 
                 private delegate void DrawMethod(Rect position, GUIContent label, SerializedContainer serializedContainer);
@@ -413,7 +413,7 @@ namespace AlephVault.Unity.Support.Generic
                 #endregion
 
                 /// <summary>
-                /// Handy class wrapping around an IUnifiedContainer-derived serialized property.
+                /// Handy class wrapping around an Interfaced-derived serialized property.
                 /// </summary>
                 public class SerializedContainer
                 {

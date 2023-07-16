@@ -202,7 +202,7 @@ namespace AlephVault.Unity.Support.Generic
                     return AssetDatabase.FindAssets("t:Object").Select(s => AssetDatabase.LoadAssetAtPath<Object>(AssetDatabase.GUIDToAssetPath(s)));
                 }
 
-                private const string GUITextureName = "IUnifiedGUITexture";
+                private const string GUITextureName = "InterfacedGUITexture";
 
                 #endregion
 
