@@ -9,7 +9,7 @@ This package is not available in any UPM server. You must install it in your pro
 2. Either refer this Github project: https://github.com/AlephVault/unity-support-generic.git or clone it locally and refer it from disk.
 3. Also, the following packages are dependencies you need to install accordingly (in the same way and also ensuring all the recursive dependencies are satisfied):
 
-   - https://github.com/AlephVault/unity-support-generic.git
+   - https://github.com/AlephVault/unity-support.git
 
 # Usage
 
