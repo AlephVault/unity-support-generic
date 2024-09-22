@@ -1,4 +1,5 @@
 ﻿# Unity Support - Generic Types
+
 This package contains extra generic types, mainly intended for authoring and standard games.
 
 # Install
